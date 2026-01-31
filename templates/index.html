@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELAZ MARKET - Farg'ona viloyati Bag'dod tumani</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #27ae60;
+            --dark-green: #219653;
+            --light-green: #d5f5e3;
+            --light-gray: #f8f9fa;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-container i {
+            font-size: 1.8rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            color: #f1c40f;
+        }
+
+        .location-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--dark-green);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .location-selector:hover {
+            background: #1e8449;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        /* Search and Categories Section */
+        .search-section {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .categories-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .category-btn {
+            background: var(--light-green);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        /* Location Banner */
+        .location-banner {
+            background: var(--light-green);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--primary-green);
+        }
+
+        .location-banner h2 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-green);
+        }
+
+        /* Products Section */
+        .products-section {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-green);
+        }
+
+        .section-title h2 {
+            color: var(--dark-green);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: var(--white);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f9f9f9;
+        }
+
+        .product-details {
+            padding: 1rem;
+        }
+
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .product-price {
+            color: var(--primary-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .add-to-cart {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: var(--dark-green);
+        }
+
+        /* Cart Section */
+        .cart-section {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .cart-items {
+            margin: 1rem 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-info h4 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-controls button {
+            background: var(--light-green);
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--dark-green);
+            font-weight: bold;
+        }
+
+        .cart-total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--light-green);
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Delivery Section */
+        .delivery-section {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .delivery-options {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .delivery-option {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .delivery-option.selected {
+            border-color: var(--primary-green);
+            background: var(--light-green);
+        }
+
+        .delivery-option i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-green);
+        }
+
+        .distance-input {
+            margin: 1rem 0;
+        }
+
+        .distance-input label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .distance-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .delivery-cost {
+            background: var(--light-green);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-weight: bold;
+            color: var(--dark-green);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-green);
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .contact-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+        }
+
+        /* Checkout Button */
+        .checkout-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: var(--dark-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-section {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        /* Modals */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-green);
+        }
+
+        .close-modal {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+            margin-top: 1rem;
+        }
+
+        /* Customer Info Form */
+        .customer-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+        }
+
+        .form-group input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        /* Order Tracking Page */
+        .tracking-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tracking-header {
+            background: var(--primary-green);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .order-status {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .status-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .status-timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #ddd;
+            z-index: 1;
+        }
+
+        .status-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .status-step.completed .step-icon {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .status-step.active .step-icon {
+            background: var(--dark-green);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .courier-tracking {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .courier-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .courier-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--light-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--dark-green);
+        }
+
+        .delivered-icon {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 2000;
+            transition: transform 0.5s;
+            pointer-events: none;
+        }
+
+        .delivered-icon.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .delivered-icon i {
+            font-size: 10rem;
+            color: var(--primary-green);
+            text-shadow: 0 0 20px rgba(39, 174, 96, 0.5);
+        }
+
+        .delivered-text {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .delivered-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1999;
+            display: none;
+        }
+
+        .delivered-overlay.active {
+            display: block;
+        }
+
+        /* Back to Shop Button */
+        .back-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 2rem auto;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--primary-green);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <i class="fas fa-shopping-basket"></i>
+                <div class="logo-text">ELAZ<span>MARKET</span></div>
+            </div>
+            
+            <div class="location-selector" id="locationSelector">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="currentLocation">Manzilni tanlang</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Location Modal -->
+    <div class="modal-overlay" id="locationModal">
+        <div class="modal-content">
+            <h3>Yetkazib berish manzilini tanlang</h3>
+            <p>Tanlangan manzilingizga qarab mavjud mahsulotlar ko'rsatiladi.</p>
+            
+            <div class="location-options">
+                <div class="location-option" data-location="tuman-markazi">
+                    <h4>TUMAN MARKAZI (SERAVO)</h4>
+                    <p>Bag'dod tuman markazi, Seravo mahallasi</p>
+                </div>
+                
+                <div class="location-option" data-location="guliston">
+                    <h4>GULISTON SHAXARCHASI</h4>
+                    <p>Bag'dod tumani, Guliston shaxarchasi</p>
+                </div>
+            </div>
+            
+            <button class="close-modal" id="closeLocationModal">Yopish</button>
+        </div>
+    </div>
+
+    <!-- Customer Info Modal -->
+    <div class="modal-overlay" id="customerModal">
+        <div class="modal-content">
+            <h3>Ma'lumotlaringizni kiriting</h3>
+            <p>Buyurtma berish uchun quyidagi ma'lumotlarni to'ldiring</p>
+            
+            <form class="customer-form" id="customerForm">
+                <div class="form-group">
+                    <label for="customerName">Ismingiz</label>
+                    <input type="text" id="customerName" placeholder="Ismingizni kiriting" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerPhone">Telefon raqamingiz</label>
+                    <input type="tel" id="customerPhone" placeholder="+998 XX XXX XX XX" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerAddress">Aniq manzil (ixtiyoriy)</label>
+                    <input type="text" id="customerAddress" placeholder="Ko'cha, uy, xonadon">
+                </div>
+                
+                <div class="form-group">
+                    <input type="checkbox" id="saveInfo">
+                    <label for="saveInfo">Ma'lumotlarni eslab qolish</label>
+                </div>
+                
+                <button type="submit" class="checkout-btn">Ma'lumotlarni saqlash</button>
+            </form>
+            
+            <button class="close-modal" id="closeCustomerModal">Bekor qilish</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Products Section -->
+        <div class="main-content">
+            <!-- Search and Categories -->
+            <div class="search-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Mahsulotlarni qidirish...">
+                    </div>
+                    <button class="category-btn" id="clearSearch">
+                        <i class="fas fa-times"></i> Tozalash
+                    </button>
+                </div>
+                
+                <div class="categories-container" id="categoriesContainer">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </div>
+            
+            <div class="location-banner">
+                <h2 id="locationTitle">Manzilni tanlang</h2>
+                <p id="locationDescription">Iltimos, mahsulotlarni ko'rish uchun yetkazib berish manzilingizni tanlang.</p>
+            </div>
+            
+            <div class="products-section">
+                <div class="section-title">
+                    <h2 id="productsTitle">Mahsulotlar</h2>
+                    <div id="productsCount">0 ta mahsulot</div>
+                </div>
+                
+                <div class="products-grid" id="productsContainer">
+                    <!-- Products will be loaded here based on location -->
+                </div>
+            </div>
+            
+            <!-- Delivery Section -->
+            <div class="delivery-section">
+                <div class="section-title">
+                    <h2>Yetkazib berish</h2>
+                </div>
+                
+                <div class="delivery-options">
+                    <div class="delivery-option selected" data-type="pedestrian">
+                        <i class="fas fa-walking"></i>
+                        <h4>Piyoda / Skuter</h4>
+                        <p>1 km gacha: 5,000 so'm</p>
+                    </div>
+                    
+                    <div class="delivery-option" data-type="car">
+                        <i class="fas fa-car"></i>
+                        <h4>Moshina</h4>
+                        <p>1 km gacha: 10,000 so'm</p>
+                    </div>
+                </div>
+                
+                <div class="distance-input">
+                    <label for="distance">Masofa (km):</label>
+                    <input type="number" id="distance" min="0" step="0.1" value="1" placeholder="Masofani kiriting">
+                </div>
+                
+                <div class="delivery-cost">
+                    Yetkazib berish narxi: <span id="deliveryPrice">5,000</span> so'm
+                    <p id="deliveryDetails">1 km gacha - 5,000 so'm</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Cart Section -->
+        <div class="cart-section">
+            <div class="section-title">
+                <h2>Savat</h2>
+                <div id="cartCount">0 ta mahsulot</div>
+            </div>
+            
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be loaded here -->
+                <p style="text-align: center; padding: 2rem 0; color: #999;">Savat hozircha bo'sh</p>
+            </div>
+            
+            <div class="cart-total">
+                <span>Jami:</span>
+                <span id="cartTotal">0</span> so'm
+            </div>
+            
+            <div class="cart-total">
+                <span>Yetkazib berish:</span>
+                <span id="deliveryCost">0</span> so'm
+            </div>
+            
+            <div class="cart-total" style="font-size: 1.3rem; color: var(--primary-green);">
+                <span>Umumiy summa:</span>
+                <span id="totalWithDelivery">0</span> so'm
+            </div>
+            
+            <button class="checkout-btn" id="checkoutBtn">
+                <i class="fas fa-shopping-cart"></i> Buyurtma berish
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>ELAZ MARKET</h3>
+                <p>Farg'ona viloyati, Bag'dod tumanidagi eng yaxshi supermarket. Har qanday turdagi mahsulotlarni eng arzon narxlarda taklif etamiz.</p>
+                <p>Bizning maqsadimiz - mijozlarimizga yuqori sifatli mahsulotlarni qulay va tez yetkazib berish.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Yetkazib berish shartlari</h3>
+                <div class="contact-details">
+                    <i class="fas fa-walking"></i>
+                    <div>
+                        <strong>Piyoda / Skuter:</strong><br>
+                        1 km gacha - 5,000 so'm<br>
+                        Har qo'shimcha km - 2,000 so'm
+                    </div>
+                </div>
+                
+                <div class="contact-details">
+                    <i class="fas fa-car"></i>
+                    <div>
+                        <strong>Moshina:</strong><br>
+                        1 km gacha - 10,000 so'm<br>
+                        Har qo'shimcha km - 2,000 so'm
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Bog'lanish</h3>
+                <div class="contact-details">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>Manzil:</strong><br>
+                        Farg'ona viloyati, Bag'dod tumani
+                    </div>
+                </div>
+                
+                <div class="contact-details">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <strong>Ish vaqti:</strong><br>
+                        Har kuni 08:00 - 22:00
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2026 ELAZ MARKET. Barcha huquqlar himoyalangan.
+        </div>
+    </footer>
+
+    <!-- Delivered Icon Animation -->
+    <div class="delivered-overlay" id="deliveredOverlay"></div>
+    <div class="delivered-icon" id="deliveredIcon">
+        <i class="fas fa-check-circle"></i>
+        <div class="delivered-text">Yetkazib berildi!</div>
+    </div>
+
+    <!-- Order Tracking Page (Initially Hidden) -->
+    <div id="orderTrackingPage" style="display: none;">
+        <div class="tracking-container">
+            <div class="tracking-header">
+                <h1><i class="fas fa-shipping-fast"></i> Buyurtma kuzatish</h1>
+                <p id="trackingOrderId">Buyurtma raqami: #ELAZ-001</p>
+            </div>
+            
+            <div class="order-status">
+                <h2>Buyurtma holati</h2>
+                
+                <div class="status-timeline">
+                    <div class="status-step completed">
+                        <div class="step-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="step-label">Buyurtma berildi</div>
+                    </div>
+                    
+                    <div class="status-step active">
+                        <div class="step-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="step-label">Tayyorlanmoqda</div>
+                    </div>
+                    
+                    <div class="status-step">
+                        <div class="step-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="step-label">Yo'lda</div>
+                    </div>
+                    
+                    <div class="status-step">
+                        <div class="step-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="step-label">Yetkazib berildi</div>
+                    </div>
+                </div>
+                
+                <div class="courier-info">
+                    <div class="courier-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h3>Kuryer: Aziz</h3>
+                        <p>Transport: <span id="courierTransport">Skuter</span></p>
+                    </div>
+                </div>
+                
+                <!-- Kuryer masofasi ko'rsatilmaydi (talabga ko'ra) -->
+            </div>
+            
+            <div class="courier-tracking">
+                <h2>Buyurtma tafsilotlari</h2>
+                
+                <div id="trackingOrderDetails">
+                    <!-- Order details will be shown here -->
+                </div>
+                
+                <div class="customer-info-tracking">
+                    <h3>Mijoz ma'lumotlari</h3>
+                    <p><strong>Ism:</strong> <span id="trackingCustomerName">-</span></p>
+                    <p><strong>Telefon:</strong> <span id="trackingCustomerPhone">-</span></p>
+                    <p><strong>Manzil:</strong> <span id="trackingCustomerAddress">-</span></p>
+                </div>
+            </div>
+            
+            <button class="back-btn" id="backToShopBtn">
+                <i class="fas fa-arrow-left"></i> Do'konga qaytish
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText"></span>
+    </div>
+
+    <script>
+        // Products database with categories
+        const productsDatabase = {
+            "tuman-markazi": [
+                { id: 1, name: "Non (1 dona)", price: 3000, image: "bread", category: "Non mahsulotlari" },
+                { id: 2, name: "Sut (1 litr)", price: 12000, image: "milk", category: "Sut mahsulotlari" },
+                { id: 3, name: "Tuxum (10 dona)", price: 15000, image: "eggs", category: "Oziq-ovqat" },
+                { id: 4, name: "Go'sht (1 kg)", price: 75000, image: "meat", category: "Go'sht mahsulotlari" },
+                { id: 5, name: "Sabzi (1 kg)", price: 5000, image: "carrot", category: "Sabzavotlar" },
+                { id: 6, name: "Kartoshka (1 kg)", price: 6000, image: "potato", category: "Sabzavotlar" },
+                { id: 7, name: "Piyoz (1 kg)", price: 7000, image: "onion", category: "Sabzavotlar" },
+                { id: 8, name: "Choy (1 paket)", price: 15000, image: "tea", category: "Ichimliklar" },
+                { id: 9, name: "Shakar (1 kg)", price: 12000, image: "sugar", category: "Oziq-ovqat" },
+                { id: 10, name: "Yog' (1 litr)", price: 18000, image: "oil", category: "Oziq-ovqat" },
+                { id: 11, name: "Makaron (1 kg)", price: 11000, image: "pasta", category: "Oziq-ovqat" },
+                { id: 12, name: "Kola (1.5 litr)", price: 13000, image: "cola", category: "Ichimliklar" },
+                { id: 13, name: "Pishiriq", price: 8000, image: "cake", category: "Shirinliklar" },
+                { id: 14, name: "Pomidor (1 kg)", price: 10000, image: "tomato", category: "Sabzavotlar" },
+                { id: 15, name: "Bodring (1 kg)", price: 8000, image: "cucumber", category: "Sabzavotlar" },
+                { id: 16, name: "Kolbasa (1 kg)", price: 60000, image: "sausage", category: "Go'sht mahsulotlari" }
+            ],
+            "guliston": [
+                { id: 1, name: "Non (1 dona)", price: 3000, image: "bread", category: "Non mahsulotlari" },
+                { id: 2, name: "Sut (1 litr)", price: 12000, image: "milk", category: "Sut mahsulotlari" },
+                { id: 3, name: "Tuxum (10 dona)", price: 15000, image: "eggs", category: "Oziq-ovqat" },
+                { id: 4, name: "Go'sht (1 kg)", price: 75000, image: "meat", category: "Go'sht mahsulotlari" },
+                { id: 5, name: "Sabzi (1 kg)", price: 5000, image: "carrot", category: "Sabzavotlar" },
+                { id: 6, name: "Kartoshka (1 kg)", price: 6000, image: "potato", category: "Sabzavotlar" },
+                { id: 7, name: "Piyoz (1 kg)", price: 7000, image: "onion", category: "Sabzavotlar" },
+                { id: 13, name: "Suv (5 litr)", price: 5000, image: "water", category: "Ichimliklar" },
+                { id: 14, name: "Pishiriq", price: 8000, image: "cake", category: "Shirinliklar" },
+                { id: 15, name: "Pomidor (1 kg)", price: 10000, image: "tomato", category: "Sabzavotlar" },
+                { id: 16, name: "Bodring (1 kg)", price: 8000, image: "cucumber", category: "Sabzavotlar" },
+                { id: 17, name: "Kolbasa (1 kg)", price: 60000, image: "sausage", category: "Go'sht mahsulotlari" },
+                { id: 18, name: "Pepsi (1.5 litr)", price: 13000, image: "cola", category: "Ichimliklar" },
+                { id: 19, name: "Ketchup", price: 15000, image: "sauce", category: "Oziq-ovqat" },
+                { id: 20, name: "Mayonez", price: 12000, image: "sauce", category: "Oziq-ovqat" }
+            ]
+        };
+
+        // Get DOM elements
+        const locationSelector = document.getElementById('locationSelector');
+        const locationModal = document.getElementById('locationModal');
+        const closeLocationModal = document.getElementById('closeLocationModal');
+        const locationOptions = document.querySelectorAll('.location-option');
+        const currentLocation = document.getElementById('currentLocation');
+        const locationTitle = document.getElementById('locationTitle');
+        const locationDescription = document.getElementById('locationDescription');
+        const productsContainer = document.getElementById('productsContainer');
+        const productsCount = document.getElementById('productsCount');
+        const productsTitle = document.getElementById('productsTitle');
+        const deliveryOptions = document.querySelectorAll('.delivery-option');
+        const distanceInput = document.getElementById('distance');
+        const deliveryPrice = document.getElementById('deliveryPrice');
+        const deliveryDetails = document.getElementById('deliveryDetails');
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const deliveryCost = document.getElementById('deliveryCost');
+        const totalWithDelivery = document.getElementById('totalWithDelivery');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearch = document.getElementById('clearSearch');
+        const categoriesContainer = document.getElementById('categoriesContainer');
+        const customerModal = document.getElementById('customerModal');
+        const closeCustomerModal = document.getElementById('closeCustomerModal');
+        const customerForm = document.getElementById('customerForm');
+        const orderTrackingPage = document.getElementById('orderTrackingPage');
+        const backToShopBtn = document.getElementById('backToShopBtn');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const deliveredOverlay = document.getElementById('deliveredOverlay');
+        const deliveredIcon = document.getElementById('deliveredIcon');
+
+        // State variables
+        let selectedLocation = null;
+        let cart = [];
+        let deliveryType = 'pedestrian'; // 'pedestrian' or 'car'
+        let distance = 1;
+        let customerInfo = null;
+        let currentCategory = 'all';
+        let searchQuery = '';
+        let allCategories = [];
+        let trackingInterval = null;
+        let orderStatus = 'preparing'; // preparing, on_the_way, delivered
+
+        // Image mapping
+        const imageMap = {
+            'bread': 'fas fa-bread-slice',
+            'milk': 'fas fa-wine-bottle',
+            'eggs': 'fas fa-egg',
+            'meat': 'fas fa-drumstick-bite',
+            'carrot': 'fas fa-carrot',
+            'potato': 'fas fa-seedling',
+            'onion': 'fas fa-apple-alt',
+            'tea': 'fas fa-mug-hot',
+            'sugar': 'fas fa-cube',
+            'oil': 'fas fa-oil-can',
+            'pasta': 'fas fa-utensils',
+            'cola': 'fas fa-wine-bottle',
+            'water': 'fas fa-wine-bottle',
+            'cake': 'fas fa-birthday-cake',
+            'tomato': 'fas fa-apple-alt',
+            'cucumber': 'fas fa-seedling',
+            'sausage': 'fas fa-hotdog',
+            'sauce': 'fas fa-wine-bottle'
+        };
+
+        // Color mapping for product categories
+        const categoryColors = {
+            'Non mahsulotlari': '#f9e79f',
+            'Sut mahsulotlari': '#aed6f1',
+            'Oziq-ovqat': '#fadbd8',
+            'Go\'sht mahsulotlari': '#f5b7b1',
+            'Sabzavotlar': '#abebc6',
+            'Ichimliklar': '#d6eaf8',
+            'Shirinliklar': '#fad7a0'
+        };
+
+        // Initialize the app
+        function init() {
+            setupEventListeners();
+            loadCartFromStorage();
+            loadCustomerInfoFromStorage();
+            updateCartDisplay();
+            updateCategories();
+            
+            // Simulate Telegram bot connection
+            simulateTelegramBot();
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Location selector
+            locationSelector.addEventListener('click', () => {
+                locationModal.style.display = 'flex';
+            });
+
+            // Close location modal
+            closeLocationModal.addEventListener('click', () => {
+                locationModal.style.display = 'none';
+            });
+
+            // Location selection
+            locationOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const location = option.getAttribute('data-location');
+                    selectLocation(location);
+                    locationModal.style.display = 'none';
+                });
+            });
+
+            // Delivery option selection
+            deliveryOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    deliveryOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    deliveryType = option.getAttribute('data-type');
+                    calculateDeliveryCost();
+                    updateCartDisplay();
+                });
+            });
+
+            // Distance input
+            distanceInput.addEventListener('input', () => {
+                distance = parseFloat(distanceInput.value) || 0;
+                calculateDeliveryCost();
+                updateCartDisplay();
+            });
+
+            // Search input
+            searchInput.addEventListener('input', () => {
+                searchQuery = searchInput.value.toLowerCase();
+                filterProducts();
+            });
+
+            // Clear search
+            clearSearch.addEventListener('click', () => {
+                searchInput.value = '';
+                searchQuery = '';
+                currentCategory = 'all';
+                updateCategoryButtons();
+                filterProducts();
+            });
+
+            // Checkout button
+            checkoutBtn.addEventListener('click', () => {
+                if (cart.length === 0) {
+                    showNotification('Savat bo\'sh. Iltimos, buyurtma berish uchun mahsulot qo\'shing.', 'error');
+                    return;
+                }
+
+                if (!selectedLocation) {
+                    showNotification('Iltimos, yetkazib berish manzilini tanlang.', 'error');
+                    return;
+                }
+
+                // Check if customer info exists
+                if (!customerInfo) {
+                    // Show customer info modal
+                    customerModal.style.display = 'flex';
+                } else {
+                    // Proceed to order confirmation
+                    confirmOrder();
+                }
+            });
+
+            // Customer form submission
+            customerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('customerName').value;
+                const phone = document.getElementById('customerPhone').value;
+                const address = document.getElementById('customerAddress').value;
+                const saveInfo = document.getElementById('saveInfo').checked;
+                
+                if (!name || !phone) {
+                    showNotification('Iltimos, ism va telefon raqamingizni kiriting.', 'error');
+                    return;
+                }
+                
+                customerInfo = {
+                    name,
+                    phone,
+                    address
+                };
+                
+                if (saveInfo) {
+                    localStorage.setItem('elazMarketCustomer', JSON.stringify(customerInfo));
+                }
+                
+                customerModal.style.display = 'none';
+                showNotification('Ma\'lumotlaringiz saqlandi!', 'success');
+                
+                // Proceed to order confirmation
+                confirmOrder();
+            });
+
+            // Close customer modal
+            closeCustomerModal.addEventListener('click', () => {
+                customerModal.style.display = 'none';
+            });
+
+            // Back to shop button
+            backToShopBtn.addEventListener('click', () => {
+                orderTrackingPage.style.display = 'none';
+                document.querySelector('.container').style.display = 'grid';
+                document.querySelector('header').style.display = 'block';
+                document.querySelector('footer').style.display = 'block';
+                
+                // Stop tracking simulation
+                if (trackingInterval) {
+                    clearInterval(trackingInterval);
+                    trackingInterval = null;
+                }
+            });
+
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === locationModal) {
+                    locationModal.style.display = 'none';
+                }
+                if (e.target === customerModal) {
+                    customerModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Simulate Telegram bot for delivery status updates
+        function simulateTelegramBot() {
+            // This simulates the Telegram bot that would send delivery updates
+            // In a real app, this would be a WebSocket connection to a backend
+            setInterval(() => {
+                // Check if we're on the tracking page
+                if (orderTrackingPage.style.display === 'block') {
+                    // Simulate status updates from bot
+                    updateOrderStatusFromBot();
+                }
+            }, 5000); // Check every 5 seconds
+        }
+
+        // Update order status based on simulated bot messages
+        function updateOrderStatusFromBot() {
+            const statusSteps = document.querySelectorAll('.status-step');
+            
+            // Simulate bot sending status updates
+            if (orderStatus === 'preparing') {
+                // After 10 seconds, move to "on_the_way"
+                setTimeout(() => {
+                    if (orderStatus === 'preparing') {
+                        orderStatus = 'on_the_way';
+                        statusSteps[1].classList.remove('active');
+                        statusSteps[2].classList.add('active');
+                        showNotification('Buyurtmangiz yo\'lda!', 'success');
+                    }
+                }, 10000);
+            } else if (orderStatus === 'on_the_way') {
+                // After 15 seconds, move to "delivered" when bot sends "yetkazildi"
+                setTimeout(() => {
+                    if (orderStatus === 'on_the_way') {
+                        // Simulate bot sending "yetkazildi" command
+                        simulateBotDeliveryComplete();
+                    }
+                }, 15000);
+            }
+        }
+
+        // Simulate bot sending delivery complete command
+        function simulateBotDeliveryComplete() {
+            orderStatus = 'delivered';
+            const statusSteps = document.querySelectorAll('.status-step');
+            statusSteps[2].classList.remove('active');
+            statusSteps[3].classList.add('active');
+            
+            // Show the delivered icon animation
+            showDeliveredAnimation();
+            
+            // Update notification
+            showNotification('Buyurtmangiz yetkazib berildi! Rahmat!', 'success');
+        }
+
+        // Show delivered icon animation
+        function showDeliveredAnimation() {
+            deliveredOverlay.classList.add('active');
+            deliveredIcon.classList.add('active');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                deliveredOverlay.classList.remove('active');
+                deliveredIcon.classList.remove('active');
+            }, 3000);
+        }
+
+        // Update categories list
+        function updateCategories() {
+            allCategories = ['all'];
+            categoriesContainer.innerHTML = '';
+            
+            // Create "All" category button
+            const allButton = document.createElement('button');
+            allButton.className = 'category-btn active';
+            allButton.textContent = 'Barchasi';
+            allButton.setAttribute('data-category', 'all');
+            allButton.addEventListener('click', () => {
+                currentCategory = 'all';
+                updateCategoryButtons();
+                filterProducts();
+            });
+            categoriesContainer.appendChild(allButton);
+            
+            // Collect all categories from products
+            if (selectedLocation && productsDatabase[selectedLocation]) {
+                productsDatabase[selectedLocation].forEach(product => {
+                    if (!allCategories.includes(product.category)) {
+                        allCategories.push(product.category);
+                        
+                        const button = document.createElement('button');
+                        button.className = 'category-btn';
+                        button.textContent = product.category;
+                        button.setAttribute('data-category', product.category);
+                        button.addEventListener('click', () => {
+                            currentCategory = product.category;
+                            updateCategoryButtons();
+                            filterProducts();
+                        });
+                        categoriesContainer.appendChild(button);
+                    }
+                });
+            }
+        }
+
+        // Update category buttons active state
+        function updateCategoryButtons() {
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(button => {
+                const category = button.getAttribute('data-category');
+                if (category === currentCategory) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        // Filter products based on search and category
+        function filterProducts() {
+            if (!selectedLocation) return;
+            
+            const products = productsDatabase[selectedLocation] || [];
+            let filteredProducts = products;
+            
+            // Filter by category
+            if (currentCategory !== 'all') {
+                filteredProducts = filteredProducts.filter(product => product.category === currentCategory);
+            }
+            
+            // Filter by search query
+            if (searchQuery) {
+                filteredProducts = filteredProducts.filter(product => 
+                    product.name.toLowerCase().includes(searchQuery) || 
+                    product.category.toLowerCase().includes(searchQuery)
+                );
+            }
+            
+            // Display filtered products
+            displayProducts(filteredProducts);
+        }
+
+        // Display products
+        function displayProducts(products) {
+            productsContainer.innerHTML = '';
+            
+            if (products.length === 0) {
+                productsContainer.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #777;">
+                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3>Hech narsa topilmadi</h3>
+                        <p>Boshqa so'z yoki kategoriya bilan qayta urinib ko'ring</p>
+                    </div>
+                `;
+                productsCount.textContent = `0 ta mahsulot`;
+                return;
+            }
+            
+            products.forEach(product => {
+                const productElement = createProductElement(product);
+                productsContainer.appendChild(productElement);
+            });
+            
+            productsCount.textContent = `${products.length} ta mahsulot`;
+        }
+
+        // Select location
+        function selectLocation(location) {
+            selectedLocation = location;
+            
+            // Update location display
+            if (location === 'tuman-markazi') {
+                currentLocation.textContent = 'TUMAN MARKAZI';
+                locationTitle.textContent = 'TUMAN MARKAZI (SERAVO)';
+                locationDescription.textContent = 'Bag\'dod tuman markazi, Seravo mahallasi. Ushbu manzil uchun mavjud mahsulotlar:';
+                productsTitle.textContent = 'Tuman Markazidagi Mahsulotlar';
+            } else if (location === 'guliston') {
+                currentLocation.textContent = 'GULISTON SHAXARCHASI';
+                locationTitle.textContent = 'GULISTON SHAXARCHASI';
+                locationDescription.textContent = 'Bag\'dod tumani, Guliston shaxarchasi. Ushbu manzil uchun mavjud mahsulotlar:';
+                productsTitle.textContent = 'Guliston Shaxarchasidagi Mahsulotlar';
+            }
+            
+            // Update location options UI
+            locationOptions.forEach(option => {
+                if (option.getAttribute('data-location') === location) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+            
+            // Update categories and load products
+            updateCategories();
+            filterProducts();
+        }
+
+        // Create product element
+        function createProductElement(product) {
+            const div = document.createElement('div');
+            div.className = 'product-card';
+            div.innerHTML = `
+                <div class="product-image" style="background-color: ${categoryColors[product.category] || '#f9f9f9'}; display: flex; justify-content: center; align-items: center;">
+                    <i class="${imageMap[product.image] || 'fas fa-shopping-basket'}" style="font-size: 3rem; color: #27ae60;"></i>
+                </div>
+                <div class="product-details">
+                    <h4 class="product-title">${product.name}</h4>
+                    <div style="font-size: 0.8rem; color: #666; margin-bottom: 0.5rem;">${product.category}</div>
+                    <div class="product-price">${product.price.toLocaleString()} so'm</div>
+                    <button class="add-to-cart" data-id="${product.id}">
+                        <i class="fas fa-cart-plus"></i> Savatga qo'shish
+                    </button>
+                </div>
+            `;
+            
+            // Add event listener to the button
+            const addButton = div.querySelector('.add-to-cart');
+            addButton.addEventListener('click', () => {
+                addToCart(product);
+            });
+            
+            return div;
+        }
+
+        // Add product to cart
+        function addToCart(product) {
+            if (!selectedLocation) {
+                showNotification('Iltimos, avval yetkazib berish manzilini tanlang.', 'error');
+                return;
+            }
+            
+            const existingItem = cart.find(item => item.id === product.id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1,
+                    category: product.category
+                });
+            }
+            
+            saveCartToStorage();
+            updateCartDisplay();
+            
+            showNotification(`${product.name} savatga qo'shildi!`, 'success');
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; padding: 2rem 0; color: #999;">Savat hozircha bo\'sh</p>';
+                cartCount.textContent = '0 ta mahsulot';
+                cartTotal.textContent = '0';
+                deliveryCost.textContent = '0';
+                totalWithDelivery.textContent = '0';
+                return;
+            }
+            
+            // Update cart count and total
+            let total = 0;
+            let totalItems = 0;
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                totalItems += item.quantity;
+                
+                // Create cart item element
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <div class="cart-item-price">${item.price.toLocaleString()} so'm</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="decrease-quantity" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="increase-quantity" data-id="${item.id}">+</button>
+                        <button class="remove-item" data-id="${item.id}" style="background: #f5b7b1; margin-left: 5px;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                cartItems.appendChild(itemElement);
+            });
+            
+            // Add event listeners to cart controls
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.getAttribute('data-id'));
+                    decreaseQuantity(id);
+                });
+            });
+            
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.getAttribute('data-id'));
+                    increaseQuantity(id);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.getAttribute('data-id'));
+                    removeFromCart(id);
+                });
+            });
+            
+            // Update totals
+            const delivery = calculateDelivery();
+            
+            cartCount.textContent = `${totalItems} ta mahsulot`;
+            cartTotal.textContent = total.toLocaleString();
+            deliveryCost.textContent = delivery.toLocaleString();
+            totalWithDelivery.textContent = (total + delivery).toLocaleString();
+        }
+
+        // Decrease item quantity
+        function decreaseQuantity(id) {
+            const item = cart.find(item => item.id === id);
+            
+            if (item) {
+                if (item.quantity > 1) {
+                    item.quantity -= 1;
+                } else {
+                    // Remove item if quantity becomes 0
+                    cart = cart.filter(item => item.id !== id);
+                }
+                
+                saveCartToStorage();
+                updateCartDisplay();
+            }
+        }
+
+        // Increase item quantity
+        function increaseQuantity(id) {
+            const item = cart.find(item => item.id === id);
+            
+            if (item) {
+                item.quantity += 1;
+                saveCartToStorage();
+                updateCartDisplay();
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCartToStorage();
+            updateCartDisplay();
+        }
+
+        // Calculate delivery cost
+        function calculateDelivery() {
+            if (!selectedLocation) return 0;
+            
+            let baseCost = 0;
+            let additionalCost = 0;
+            
+            if (deliveryType === 'pedestrian') {
+                baseCost = 5000;
+            } else if (deliveryType === 'car') {
+                baseCost = 10000;
+            }
+            
+            if (distance > 1) {
+                additionalCost = (distance - 1) * 2000;
+            }
+            
+            return baseCost + additionalCost;
+        }
+
+        // Calculate total cost of items in cart
+        function calculateTotal() {
+            return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        }
+
+        // Calculate and update delivery cost display
+        function calculateDeliveryCost() {
+            const cost = calculateDelivery();
+            deliveryPrice.textContent = cost.toLocaleString();
+            
+            // Update delivery details
+            let details = '';
+            if (deliveryType === 'pedestrian') {
+                details = '1 km gacha - 5,000 so\'m';
+            } else {
+                details = '1 km gacha - 10,000 so\'m';
+            }
+            
+            if (distance > 1) {
+                details += `, qo'shimcha ${distance - 1} km - ${((distance - 1) * 2000).toLocaleString()} so'm`;
+            }
+            
+            deliveryDetails.textContent = details;
+        }
+
+        // Confirm order and show tracking page
+        function confirmOrder() {
+            const total = calculateTotal();
+            const delivery = calculateDelivery();
+            const finalTotal = total + delivery;
+            
+            // Generate order ID
+            const orderId = 'ELAZ-' + Date.now().toString().substr(-6);
+            
+            // Save order to localStorage
+            const order = {
+                id: orderId,
+                date: new Date().toISOString(),
+                items: [...cart],
+                total,
+                delivery,
+                finalTotal,
+                customerInfo,
+                location: selectedLocation,
+                deliveryType,
+                distance,
+                status: 'preparing'
+            };
+            
+            localStorage.setItem('elazMarketLastOrder', JSON.stringify(order));
+            
+            // Reset order status for new order
+            orderStatus = 'preparing';
+            
+            // Show tracking page
+            showTrackingPage(order);
+            
+            // Clear cart
+            cart = [];
+            saveCartToStorage();
+            updateCartDisplay();
+        }
+
+        // Show tracking page
+        function showTrackingPage(order) {
+            // Hide main content
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('header').style.display = 'none';
+            document.querySelector('footer').style.display = 'none';
+            
+            // Show tracking page
+            orderTrackingPage.style.display = 'block';
+            
+            // Update order info
+            document.getElementById('trackingOrderId').textContent = `Buyurtma raqami: #${order.id}`;
+            document.getElementById('trackingCustomerName').textContent = order.customerInfo?.name || '-';
+            document.getElementById('trackingCustomerPhone').textContent = order.customerInfo?.phone || '-';
+            document.getElementById('trackingCustomerAddress').textContent = order.customerInfo?.address || '-';
+            document.getElementById('courierTransport').textContent = order.deliveryType === 'pedestrian' ? 'Skuter' : 'Moshina';
+            
+            // Reset status steps
+            const statusSteps = document.querySelectorAll('.status-step');
+            statusSteps.forEach((step, index) => {
+                step.classList.remove('completed', 'active');
+                if (index === 0) {
+                    step.classList.add('completed');
+                }
+                if (index === 1) {
+                    step.classList.add('active');
+                }
+            });
+            
+            // Update order details
+            const orderDetails = document.getElementById('trackingOrderDetails');
+            orderDetails.innerHTML = '';
+            
+            order.items.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.style.cssText = 'display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;';
+                itemElement.innerHTML = `
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span>${(item.price * item.quantity).toLocaleString()} so'm</span>
+                `;
+                orderDetails.appendChild(itemElement);
+            });
+            
+            // Add totals
+            const totalsElement = document.createElement('div');
+            totalsElement.style.cssText = 'display: flex; justify-content: space-between; padding: 10px 0; font-weight: bold;';
+            totalsElement.innerHTML = `
+                <span>Jami:</span>
+                <span>${order.total.toLocaleString()} so'm</span>
+            `;
+            orderDetails.appendChild(totalsElement);
+            
+            const deliveryElement = document.createElement('div');
+            deliveryElement.style.cssText = 'display: flex; justify-content: space-between; padding: 10px 0;';
+            deliveryElement.innerHTML = `
+                <span>Yetkazib berish:</span>
+                <span>${order.delivery.toLocaleString()} so'm</span>
+            `;
+            orderDetails.appendChild(deliveryElement);
+            
+            const totalElement = document.createElement('div');
+            totalElement.style.cssText = 'display: flex; justify-content: space-between; padding: 10px 0; font-size: 1.2rem; color: var(--primary-green);';
+            totalElement.innerHTML = `
+                <span>Umumiy:</span>
+                <span>${order.finalTotal.toLocaleString()} so'm</span>
+            `;
+            orderDetails.appendChild(totalElement);
+        }
+
+        // Save cart to localStorage
+        function saveCartToStorage() {
+            localStorage.setItem('elazMarketCart', JSON.stringify(cart));
+        }
+
+        // Load cart from localStorage
+        function loadCartFromStorage() {
+            const savedCart = localStorage.getItem('elazMarketCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+        }
+
+        // Load customer info from localStorage
+        function loadCustomerInfoFromStorage() {
+            const savedCustomer = localStorage.getItem('elazMarketCustomer');
+            if (savedCustomer) {
+                customerInfo = JSON.parse(savedCustomer);
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            notificationText.textContent = message;
+            notification.style.background = type === 'error' ? '#e74c3c' : 'var(--primary-green)';
+            notification.style.display = 'flex';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Initialize the app
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
